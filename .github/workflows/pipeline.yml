@@ -60,3 +60,12 @@ jobs:
           fi
 
           aws s3 cp index.html s3://$BUCKET_S3 --recursive --acl public-read
+              # Configurar o job para ser executado manualmente
+              
+  manual-deploy-prod:
+      if: github.event_name == 'workflow_run'
+      needs: deploy
+      runs-on: ubuntu-latest
+      steps:
+        - name: Manual approval step
+          run: echo "This job requires manual approval."
