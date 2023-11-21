@@ -39,6 +39,15 @@ jobs:
           name: deploy
           path: index.html
 
+      - name: Check commit message for keyword
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"DEPLOY NOW"* ]]; then
+            echo "Commit message contains the keyword. Proceeding with deployment."
+          else
+            echo "Commit message does not contain the keyword. Skipping deployment."
+            exit 78  # Exit with a neutral exit code to indicate skipping without failure
+          fi
+
       - name: Deploy to S3
         run: |
           if [ "${{ matrix.environment }}" == "homologacao" ]; then
