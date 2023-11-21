@@ -63,7 +63,6 @@ jobs:
               # Configurar o job para ser executado manualmente
               
   manual-deploy-prod:
-      if: github.event_name == 'workflow_run'
       needs: deploy
       runs-on: ubuntu-latest
       steps:
